@@ -11,7 +11,7 @@ import (
 	"net"
 )
 
-var localAddr *string = flag.String("l", "localhost:80", "local address")
+var localAddr *string = flag.String("l", "localhost:8080", "local address")
 var remoteAddr *string = flag.String("r", "localhost:9007", "remote address")
 
 func proxyConn(conn *net.TCPConn) {
@@ -34,7 +34,7 @@ func proxyConn(conn *net.TCPConn) {
 			panic(err)
 		}
 		buf.Write(data[:n])
-		if data[0] == 13 && data[1] == 10 {
+		if data[0] == '\r' && data[1] == '\n' {
 			break
 		}
 	}
@@ -94,7 +94,7 @@ func main() {
 	for {
 		conn, err := listener.AcceptTCP()
 		if err != nil {
-			panic(err)
+			panic(err)cd
 		}
 		pending <- conn
 	}
