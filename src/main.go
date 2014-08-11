@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"time"
+	"github.com/bamdadd/gopheroxy"
 )
 
 var fromHost = flag.String("from", "localhost:8080", "The proxy server's host.")
@@ -18,14 +19,15 @@ var maxWaitingConnections = flag.Int("cw", 10000, "The maximum number of " +
 			"connections that can be waiting to be served.")
 
 func main() {
-	// Parse the command-line arguments.
+	config:= gopheroxy.ReadConfig("../config/config.yml")
+	fmt.Println(config.Backend)
+	fmt.Println(config.Frontend)
+
+
 	flag.Parse()
 	fmt.Printf("Proxying %s->%s.\r\n", *fromHost, *toHost)
 
-	// Set up our listening server
 	server, err := net.Listen("tcp", *fromHost)
-
-	// If any error occurs while setting up our listening server, error out.
 	if err != nil {
 		log.Fatal(err)
 	}
