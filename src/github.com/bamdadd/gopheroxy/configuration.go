@@ -10,6 +10,8 @@ import (
 type Configuration struct {
 	Backend string
 	Frontend string
+	MaxConn int
+	MaxWaitConn int
 }
 
 
