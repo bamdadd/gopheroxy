@@ -6,12 +6,12 @@ import (
 	"log"
 	"net"
 	"time"
-	"github.com/bamdadd/gopheroxy"
+	"github.com/bamdadd/gopheroxy/configuration"
 )
 
 
 func main() {
-	config := gopheroxy.ReadConfig("config/config.yml")
+	config := configuration.ReadConfig("config/config.yml")
 	fmt.Printf("Proxying %s->%s.\r\n", *&config.Frontend, *&config.Backend)
 
 

@@ -1,4 +1,4 @@
-package gopheroxy
+package configuration
 
 import (
 	"io/ioutil"
