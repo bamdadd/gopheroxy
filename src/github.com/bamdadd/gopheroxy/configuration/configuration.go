@@ -14,23 +14,6 @@ type Configuration struct {
 	MaxWaitConn int
 }
 
-func (c *Configuration) GetBackend() string {
-	return c.Backend
-}
-
-func (c *Configuration) GetFrontend() string {
-	return c.Frontend
-}
-
-func (c *Configuration) GetMaxConn() int {
-	return c.MaxConn
-}
-
-func (c *Configuration) GetMaxWaitConn() int {
-	return c.MaxWaitConn
-}
-
-
 func ReadConfig(f string) Configuration {
 	var file, err = ioutil.ReadFile(f)
 	var c Configuration

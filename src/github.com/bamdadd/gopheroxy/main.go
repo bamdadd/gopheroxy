@@ -9,7 +9,7 @@ import (
 
 func main() {
 	c := configuration.ParseConfig(configuration.ReadConfig, "config/config.yml")
-	fmt.Printf("Proxying %s->%s.\r\n", c.GetFrontend(), c.GetBackend())
+	fmt.Printf("Proxying %s->%s.\r\n", c.Frontend, c.Backend)
 
 
 	proxy.ProxyTCP(&c)
