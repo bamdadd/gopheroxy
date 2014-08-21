@@ -1,5 +1,3 @@
-//Original Source : https://github.com/jokeofweek/gotcpproxy/blob/master/proxy.go
-
 package proxy
 
 import (
@@ -21,23 +19,23 @@ func ProxyTCP(config *configuration.Configuration) {
 
 
 func (p *TCPProxy) proxy() {
+	server, err := net.Listen("tcp", p.config.GetFrontend())
 
-	server, err := net.Listen("tcp", *&p.config.Frontend)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// The channel of connections which are waiting to be processed.
-	waiting := make(chan net.Conn, *&p.config.MaxWaitConn)
+	waiting := make(chan net.Conn, p.config.GetMaxWaitConn())
 	// The booleans representing the free active connection spaces.
-	spaces := make(chan bool, *&p.config.MaxConn)
+	spaces := make(chan bool, p.config.GetMaxConn())
 	// Initialize the spaces
-	for i := 0; i < *&p.config.MaxConn; i++ {
+	for i := 0; i < p.config.GetMaxConn(); i++ {
 		spaces <- true
 	}
 
 	// Start the connection matcher.
-	go matchConnections(waiting, spaces, *&p.config.Backend)
+	go matchConnections(waiting, spaces, p.config.GetBackend())
 
 	// Loop indefinitely, accepting connections and handling them.
 	for {

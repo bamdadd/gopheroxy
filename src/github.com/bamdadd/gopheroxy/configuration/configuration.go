@@ -14,19 +14,37 @@ type Configuration struct {
 	MaxWaitConn int
 }
 
+func (c *Configuration) GetBackend() string {
+	return c.Backend
+}
+
+func (c *Configuration) GetFrontend() string {
+	return c.Frontend
+}
+
+func (c *Configuration) GetMaxConn() int {
+	return c.MaxConn
+}
+
+func (c *Configuration) GetMaxWaitConn() int {
+	return c.MaxWaitConn
+}
 
 
-func (c *Configuration) Read(f string) {
+func ReadConfig(f string) Configuration {
 	var file, err = ioutil.ReadFile(f)
+	var c Configuration
 	if err != nil { panic(err) }
 
 	yaml.Unmarshal([]byte(file), &c)
 	if err != nil { panic(err) }
 
+	return c
+
 }
 
-func ReadConfig(path string) *Configuration {
-	config := &Configuration{}
-	config.Read(path)
-	return config
+type ConfigParser func(path string) Configuration
+
+func ParseConfig(parserMethod ConfigParser, path string) Configuration{
+	return parserMethod(path)
 }

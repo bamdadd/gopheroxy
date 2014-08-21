@@ -1,4 +1,6 @@
 *.imp
+out/
+bin/
 *.iml
 .idea
 pkg
